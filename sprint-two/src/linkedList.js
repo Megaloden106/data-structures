@@ -46,8 +46,9 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
- * Linear O(n)
- * compares to target once per node object
+ * addToTail() - O(1) 
+ * removeHead() - O(1)
+ * contains() - O(n) looking at each node
  */
  
  
