@@ -46,5 +46,9 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * Linear O(n)
+ * compares to target once per node object
  */
+ 
+ 
 

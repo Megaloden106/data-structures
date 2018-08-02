@@ -33,6 +33,10 @@ treeMethods.contains = function(target) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * Linear - O(n)
+ * 
+ *        5 6 7 8
+ * target N N N Y
  */
 
 
