@@ -56,6 +56,9 @@ BSTMethods.depthFirstLog = function(callback) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * contain: O(n) worst case, O(log n) best case completely balanced
+ * insert: O(1)
+ * depthFirstLog: O(n) only cycling through depth array
  */
 
 

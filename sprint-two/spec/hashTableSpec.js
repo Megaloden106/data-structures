@@ -34,6 +34,27 @@ describe('hashTable', function() {
     hashTable.remove('Steven');
     expect(hashTable.retrieve('Steven')).to.equal(undefined);
   });
+  
+  it('should handle collisions when inserted values exceed limit', function() {
+    hashTable.insert('A', '1');
+    hashTable.insert('B', '2');
+    hashTable.insert('C', '3');
+    hashTable.insert('D', '4');
+    hashTable.insert('E', '5');
+    hashTable.insert('F', '6');
+    hashTable.insert('G', '7');
+    hashTable.insert('H', '8');
+    hashTable.insert('I', '9');
+    expect(hashTable.retrieve('A')).to.equal('1');
+    expect(hashTable.retrieve('B')).to.equal('2');
+    expect(hashTable.retrieve('C')).to.equal('3');
+    expect(hashTable.retrieve('D')).to.equal('4');
+    expect(hashTable.retrieve('E')).to.equal('5');
+    expect(hashTable.retrieve('F')).to.equal('6');
+    expect(hashTable.retrieve('G')).to.equal('7');
+    expect(hashTable.retrieve('H')).to.equal('8');
+    expect(hashTable.retrieve('I')).to.equal('9');
+  });
 
   it('should handle hash function collisions', function() {
     var v1 = 'val1';

@@ -22,6 +22,8 @@ Graph.prototype.removeNode = function(node) {
       this.storage[edge].splice(this.storage[edge].indexOf(node), 1);
     }
     delete this.storage[node];
+  } else {
+    throw new Error('Node does not exist');
   }
 };
 

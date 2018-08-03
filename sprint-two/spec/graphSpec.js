@@ -68,4 +68,10 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+  
+  it('should throw an error for removed node if graph is empty', function() {
+    var fn = graph.removeNode.bind(graph, 5);
+    expect(fn).to.throw(Error);
+  });
+  
 });

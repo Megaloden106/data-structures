@@ -40,5 +40,10 @@ describe('tree', function() {
     expect(tree.contains(7)).to.equal(true);
     expect(tree.contains(8)).to.equal(true);
   });
+  
+  it('should be able to hold a value at head of tree', function() {
+    var tree = Tree(5);
+    expect(tree.contains(5)).to.equal(true);
+  });
 
 });
