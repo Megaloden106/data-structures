@@ -5,10 +5,11 @@ describe('binarySearchTree', function() {
     binarySearchTree = BinarySearchTree(5);
   });
 
-  it('should have methods named "insert", "contains", and "depthFirstLog', function() {
+  it('should have methods named "insert", "contains", "depthFirstLog", and "removeFromParent"', function() {
     expect(binarySearchTree.insert).to.be.a('function');
     expect(binarySearchTree.contains).to.be.a('function');
     expect(binarySearchTree.depthFirstLog).to.be.a('function');
+    expect(binarySearchTree.removeFromParent).to.be.a('function');
   });
 
   it('should insert values at the correct location in the tree', function() {
@@ -36,6 +37,25 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(7);
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
+  });
+  
+  it('should have a parent', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(6);
+    expect(binarySearchTree.right.parent.value).to.eql(5);
+    expect(binarySearchTree.left.right.parent.value).to.eql(2);
+  });
+  
+  it('should remove node from parent', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(6);
+    expect(binarySearchTree.removeFromParent(6).value).to.eql(6);
+    expect(binarySearchTree.contains(6)).to.equal(false);
+    expect(binarySearchTree.contains(7)).to.equal(true);
   });
   
   it('should throw an error when inserting a pre-existing node', function() {

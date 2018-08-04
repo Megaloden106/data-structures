@@ -5,6 +5,7 @@ var BinarySearchTree = function(value) {
   tree.right = null;
   tree.depth = [value];
   tree.isParent = true;
+  tree.parent = null;
   return tree;
 };
 
@@ -20,6 +21,7 @@ BSTMethods.insert = function(value) {
     if (this.left === null) {
       this.left = BinarySearchTree(value);
       this.left.isParent = false;
+      this.left.parent = this;
     } else {
       this.left.insert(value);
     }
@@ -27,6 +29,7 @@ BSTMethods.insert = function(value) {
     if (this.right === null) {
       this.right = BinarySearchTree(value);
       this.right.isParent = false;
+      this.right.parent = this;
     } else {
       this.right.insert(value);
     }
@@ -47,6 +50,26 @@ BSTMethods.contains = function(value) {
     }
   }
   return result;
+};
+
+BSTMethods.removeFromParent = function(value) {
+  if (this.value === value) {
+    if (this.parent.value > value) {
+      this.parent.left = null;
+    } else {
+      this.parent.right = null;
+    }
+    this.parent = null;
+    return this;
+  } else if (this.value > value) {
+    if (this.left !== null) {
+      return this.left.removeFromParent(value);
+    }
+  } else {
+    if (this.right !== null) {
+      return this.right.removeFromParent(value);
+    }
+  }
 };
 
 BSTMethods.depthFirstLog = function(callback) {
