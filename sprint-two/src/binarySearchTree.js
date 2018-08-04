@@ -3,35 +3,58 @@ var BinarySearchTree = function(value) {
   tree.value = value;
   tree.left = null;
   tree.right = null;
-  tree.depth = [value];
-  tree.isParent = true;
   tree.parent = null;
+  tree.depth = 1;
   return tree;
 };
 
 var BSTMethods = {};
 
 BSTMethods.insert = function(value) {
-  if (this.isParent) {
-    this.depth.push(value);
-  }
   if (this.value === value ) {
     throw new Error('Node already exists');
   } else if (this.value > value) {
     if (this.left === null) {
       this.left = BinarySearchTree(value);
-      this.left.isParent = false;
       this.left.parent = this;
+      this.left.updateDepth();
     } else {
       this.left.insert(value);
     }
   } else {
     if (this.right === null) {
       this.right = BinarySearchTree(value);
-      this.right.isParent = false;
       this.right.parent = this;
+      this.right.updateDepth();
     } else {
       this.right.insert(value);
+    }
+  }
+};
+
+BSTMethods.updateDepth = function() {
+  var depthL = 0;
+  var depthR = 0;
+  if (this.parent !== null) {
+    if (this.left !== null) {
+      depthL = this.left.depth;
+    }
+    if (this.right !== null) {
+      depthR = this.right.depth;
+    }
+    if (Math.abs(depthL - depthR) > 1) {
+      var parent = this.parent;
+      var branch = this.removeFromParent(this.value);
+      branch = branch.rebalance();
+      branch.parent = parent;
+      if (branch.value < parent.value) {
+        parent.left = branch;
+      } else {
+        parent.right = branch;
+      }
+    } else if (this.depth === this.parent.depth) {
+      this.parent.depth++;
+      this.parent.updateDepth();
     }
   }
 };
@@ -73,11 +96,41 @@ BSTMethods.removeFromParent = function(value) {
 };
 
 BSTMethods.depthFirstLog = function(callback) {
-  for (var tree of this.depth) {
-    callback(tree);
+  callback(this.value);
+  if (this.left !== null) {
+    this.left.depthFirstLog(callback);
+  }
+  if (this.right !== null) {
+    this.right.depthFirstLog(callback);
   }
 };
 
+BSTMethods.rebalance = function() {
+  var depth = [];
+  this.depthFirstLog(function (value) {
+    depth.push(value);
+  });
+  depth.sort(function(a, b) {
+    return a - b;
+  });
+  var branch;
+  var buildBranch = function(sortedArray) {
+    if (sortedArray.length > 0) {
+      var midpoint = Math.floor(sortedArray.length / 2);
+      var firstHalf = sortedArray.slice(0, midpoint);
+      var secondHalf = sortedArray.slice(midpoint + 1);
+      if (branch === undefined) {
+        branch = BinarySearchTree(sortedArray[midpoint]);
+      } else {
+        branch.insert(sortedArray[midpoint]);
+      }
+      buildBranch(firstHalf);
+      buildBranch(secondHalf);
+    }
+  };
+  buildBranch(depth);
+  return branch;
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?

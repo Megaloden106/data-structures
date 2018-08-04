@@ -63,4 +63,36 @@ describe('binarySearchTree', function() {
     expect(fn).to.throw(Error);
   });
   
+  it('should rebalance a branch when the method is called', function() {
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    binarySearchTree = binarySearchTree.rebalance();
+    expect(binarySearchTree.value).to.equal(3);
+    expect(binarySearchTree.left.value).to.equal(2);
+    expect(binarySearchTree.right.value).to.equal(5);
+  });
+  
+  it('should automatically rebalance tree', function() {
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    expect(binarySearchTree.depth).to.equal(3);
+    expect(binarySearchTree.left.value).to.equal(3);
+    expect(binarySearchTree.left.right.value).to.equal(4);
+  });
+  
+  it('should update depths correctly when inserting values', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(4);
+    expect(binarySearchTree.left.right.right.depth).to.equal(1);
+    expect(binarySearchTree.right.depth).to.equal(2);
+    expect(binarySearchTree.left.depth).to.equal(3);
+    expect(binarySearchTree.depth).to.equal(4);
+  });
+  
 });
