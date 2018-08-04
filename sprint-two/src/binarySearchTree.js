@@ -14,7 +14,9 @@ BSTMethods.insert = function(value) {
   if (this.isParent) {
     this.depth.push(value);
   }
-  if (this.value > value) {
+  if (this.value === value ) {
+    throw new Error('Node already exists');
+  } else if (this.value > value) {
     if (this.left === null) {
       this.left = BinarySearchTree(value);
       this.left.isParent = false;
