@@ -16,6 +16,7 @@ HashTable.prototype.insert = function(k, v) {
       if (tuple[0] === k) {
         tuple[1] = v;
         isDupKey = true;
+        break;
       }
     }
     if (!isDupKey) {
@@ -42,6 +43,7 @@ HashTable.prototype.remove = function(k) {
   for (var i = 0; i < bucket.length; i++) {
     if (bucket[i][0] === k) {
       bucket.splice(i, 1);
+      break;
     }
   }
 };

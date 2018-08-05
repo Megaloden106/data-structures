@@ -17,7 +17,7 @@ BSTMethods.insert = function(value) {
     if (this.left === null) {
       this.left = BinarySearchTree(value);
       this.left.parent = this;
-      this.left.updateDepth();
+      this.left._updateDepth();
     } else {
       this.left.insert(value);
     }
@@ -25,14 +25,14 @@ BSTMethods.insert = function(value) {
     if (this.right === null) {
       this.right = BinarySearchTree(value);
       this.right.parent = this;
-      this.right.updateDepth();
+      this.right._updateDepth();
     } else {
       this.right.insert(value);
     }
   }
 };
 
-BSTMethods.updateDepth = function() {
+BSTMethods._updateDepth = function() {
   var depthL = 0;
   var depthR = 0;
   if (this.parent !== null) {
@@ -45,7 +45,7 @@ BSTMethods.updateDepth = function() {
     if (Math.abs(depthL - depthR) > 1) {
       var parent = this.parent;
       var branch = this.removeFromParent(this.value);
-      branch = branch.rebalance();
+      branch = branch._rebalance();
       branch.parent = parent;
       if (branch.value < parent.value) {
         parent.left = branch;
@@ -54,7 +54,7 @@ BSTMethods.updateDepth = function() {
       }
     } else if (this.depth === this.parent.depth) {
       this.parent.depth++;
-      this.parent.updateDepth();
+      this.parent._updateDepth();
     }
   }
 };
@@ -105,7 +105,7 @@ BSTMethods.depthFirstLog = function(callback) {
   }
 };
 
-BSTMethods.rebalance = function() {
+BSTMethods._rebalance = function() {
   var depth = [];
   this.depthFirstLog(function (value) {
     depth.push(value);

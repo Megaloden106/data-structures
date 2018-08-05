@@ -17,8 +17,8 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
     binarySearchTree.insert(6);
-    expect(binarySearchTree.left.right.value).to.equal(3);
-    expect(binarySearchTree.right.left.value).to.equal(6);
+    expect(binarySearchTree.left.value).to.equal(2);
+    expect(binarySearchTree.right.left.value).to.equal(5);
   });
 
   it('should have a working "contains" method', function() {
@@ -66,10 +66,18 @@ describe('binarySearchTree', function() {
   it('should rebalance a branch when the method is called', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(2);
-    binarySearchTree = binarySearchTree.rebalance();
+    binarySearchTree = binarySearchTree._rebalance();
     expect(binarySearchTree.value).to.equal(3);
     expect(binarySearchTree.left.value).to.equal(2);
     expect(binarySearchTree.right.value).to.equal(5);
+  });
+  
+  it('should automatically rebalance 3 node tree', function() {
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    expect(binarySearchTree.depth).to.equal(2);
+    expect(binarySearchTree.left.value).to.equal(2);
+    expect(binarySearchTree.value).to.equal(3);
   });
   
   it('should automatically rebalance tree', function() {
